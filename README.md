@@ -15,7 +15,8 @@ npm install -g @xlong/get-skill
 <用户主目录>/.claude/skills/get-skill
 ```
 
-在 macOS/Linux 中，用户主目录通常是 `$HOME`；在 Windows 中，用户主目录通常是 `%USERPROFILE%`。安装脚本使用 Node.js 的 `os.homedir()` 获取用户主目录，因此兼容 Windows、macOS 和 Linux。
+在 macOS/Linux 中，用户主目录通常是 `$HOME`；在 Windows 中，用户主目录通常是 `%USERPROFILE%`。安装脚本使用 Node.js 的
+`os.homedir()` 获取用户主目录，因此兼容 Windows、macOS 和 Linux。
 
 安装后即可通过 `get-skill` 获取本仓库中的 skill 或 rule。
 
@@ -70,8 +71,12 @@ $HOME/.claude/skills/api-doc-update
 
 ## Skills
 
-- api-doc-update
+- api-doc-update<API生成skill>
+- design-format<网站样式规范生成skill>
 
 ## Rules
 
-- directory-structure
+- directory-structure<react项目规范>
+- nestjs-code-convention<nestjs项目规范>
+- nestjs-sql-migration<nestjs项目sql迁移规范>
+- task-planning<任务分析规范>
