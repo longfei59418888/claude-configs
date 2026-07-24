@@ -1,0 +1,25 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="295b3557-66c1-366b-ae1f-3f7a818f2dd9" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="CustomRegExpInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myConfigurations">
+        <list>
+          <RegExpInspectionConfiguration>
+            <option name="name" value="Unlocalized Chinese text" />
+            <option name="uuid" value="295b3557-66c1-366b-ae1f-3f7a818f2dd9" />
+            <option name="patterns">
+              <list>
+                <InspectionPattern>
+                  <option name="regExp" value="[^&quot;]*[\u4e00-\u9fa5]+[^&quot;]*" />
+                  <option name="_fileType" value="TypeScript JSX" />
+                  <option name="searchContext" value="ANY" />
+                </InspectionPattern>
+              </list>
+            </option>
+          </RegExpInspectionConfiguration>
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
