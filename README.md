@@ -48,3 +48,10 @@ $HOME/.claude/skills/api-doc-update
 .agent/rules/directory-structure.md
 .claude/rules/directory-structure.md
 ```
+
+
+## Skills
+- api-doc-update
+
+## Rules
+- directory-structure
