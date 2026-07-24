@@ -1,0 +1,24 @@
+{
+  "name": "@xlong/get-skill",
+  "version": "1.0.0",
+  "description": "Shared Claude and agent skills/rules configuration.",
+  "private": false,
+  "scripts": {
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "files": [
+    "README.md",
+    "skills/get-skill",
+    "scripts/postinstall.js"
+  ],
+  "keywords": [
+    "claude",
+    "agents",
+    "skills",
+    "rules"
+  ],
+  "engines": {
+    "node": ">=16.14"
+  },
+  "license": "MIT"
+}

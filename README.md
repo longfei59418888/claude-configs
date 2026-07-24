@@ -1,5 +1,24 @@
 # claude-configs
 
+## npm 全局安装
+
+执行：
+
+```bash
+npm install -g @xlong/get-skill
+```
+
+安装 npm 包时，会自动将内置的 `skills/get-skill` 复制到当前用户主目录下的系统级 skills 配置目录：
+
+```text
+<用户主目录>/.agent/skills/get-skill
+<用户主目录>/.claude/skills/get-skill
+```
+
+在 macOS/Linux 中，用户主目录通常是 `$HOME`；在 Windows 中，用户主目录通常是 `%USERPROFILE%`。安装脚本使用 Node.js 的 `os.homedir()` 获取用户主目录，因此兼容 Windows、macOS 和 Linux。
+
+安装后即可通过 `get-skill` 获取本仓库中的 skill 或 rule。
+
 ## get-skill 使用说明
 
 `skills/get-skill` 用于将 /skills 目录下指定 skill 安装到 skills 目录中。
@@ -49,9 +68,10 @@ $HOME/.claude/skills/api-doc-update
 .claude/rules/directory-structure.md
 ```
 
-
 ## Skills
+
 - api-doc-update
 
 ## Rules
+
 - directory-structure
