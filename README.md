@@ -77,6 +77,7 @@ $HOME/.claude/skills/api-doc-update
 ## Rules
 
 - directory-structure<react项目规范>
+- figma-component-development<figma组件开发规范>
 - nestjs-code-convention<nestjs项目规范>
 - nestjs-sql-migration<nestjs项目sql迁移规范>
 - task-planning<任务分析规范>
