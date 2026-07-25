@@ -1,6 +1,6 @@
 {
   "name": "@xlong/get-skill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Shared Claude and agent skills/rules configuration.",
   "private": false,
   "scripts": {
