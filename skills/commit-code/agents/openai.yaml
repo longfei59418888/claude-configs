@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Code"
+  short_description: "Commit changes with Conventional Commits"
+  default_prompt: "Use $commit-code to commit the current repository changes."
