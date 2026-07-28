@@ -72,7 +72,10 @@ $HOME/.claude/skills/api-doc-update
 ## Skills
 
 - api-doc-update<API生成skill>
+- commit-code<git提交skill>
 - design-format<网站样式规范生成skill>
+- get-skill<skill和rule安装skill>
+- install-npm-package<npm包安装skill>
 
 ## Rules
 
@@ -80,4 +83,5 @@ $HOME/.claude/skills/api-doc-update
 - figma-component-development<figma组件开发规范>
 - nestjs-code-convention<nestjs项目规范>
 - nestjs-sql-migration<nestjs项目sql迁移规范>
+- playwright-use<Playwright MCP使用规范>
 - task-planning<任务分析规范>

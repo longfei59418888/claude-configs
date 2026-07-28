@@ -1,0 +1,4 @@
+interface:
+  display_name: "Install NPM Package"
+  short_description: "Install npm packages with the project's package manager."
+  default_prompt: "Install an npm package into this project."
