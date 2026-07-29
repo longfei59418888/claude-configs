@@ -40,6 +40,16 @@ git worktree add ../feature-login -b feature/login origin/main
 
 4. If the target sibling directory already exists, stop and report the conflict. Do not overwrite or delete it unless the user explicitly asks.
 
+5. After the worktree is created, link the new worktree's `node_modules` to the current repository's `node_modules` so the added worktree reuses the primary project's installed dependencies:
+
+```bash
+ln -s "$(pwd)/node_modules" ../feature-login/node_modules
+```
+
+- Run this only when the current repository has a `node_modules` directory.
+- If `../feature-login/node_modules` already exists, do not overwrite it. Report the existing path and ask before changing it.
+- Report the source and target paths of the `node_modules` link.
+
 ## Delete One Worktree
 
 For a request such as `删除工作区 feature-login`, remove only that sibling worktree and then prune:
