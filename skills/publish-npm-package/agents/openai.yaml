@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish NPM Package"
+  short_description: "Version and publish npm packages safely"
+  default_prompt: "Use $publish-npm-package to bump the version and publish this npm package."
