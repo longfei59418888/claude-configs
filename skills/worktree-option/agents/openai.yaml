@@ -1,0 +1,4 @@
+interface:
+  display_name: "Worktree Option"
+  short_description: "Create and clean Git worktree directories"
+  default_prompt: "Use $worktree-option to create a new worktree from main."

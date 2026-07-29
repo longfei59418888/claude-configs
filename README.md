@@ -76,6 +76,7 @@ $HOME/.claude/skills/api-doc-update
 - design-format<网站样式规范生成skill>
 - get-skill<skill和rule安装skill>
 - install-npm-package<npm包安装skill>
+- worktree-option<git worktree工作区管理skill>
 
 ## Rules
 
