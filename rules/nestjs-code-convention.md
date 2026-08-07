@@ -121,7 +121,7 @@ DTO 类名与文件名保持一致并使用 PascalCase，例如 `CreateBrandDto`
 
 - 使用 `@InjectRepository(Entity)` 注入 TypeORM Repository。
 - 负责创建、更新、删除、查询、分页、权限组合等业务操作。
-- 查询列表时优先使用 QueryBuilder，返回统一分页结构。
+- 查询列表时优先使用 Repository 常规方法，复杂查询才使用 QueryBuilder，返回统一分页结构。
 - 可使用 `plainToInstance(Entity, dto)` 将 DTO 转换为实体更新对象。
 - 不处理 Swagger、路由装饰器和接口权限声明。
 
@@ -219,7 +219,9 @@ constructor(
 - 更新：`repository.update(id, plainToInstance(Entity, dto))`，返回更新对象 ID 或业务需要的结果。
 - 删除：`repository.delete(id)`。
 - 详情：`repository.findOne({ where: { id } })`。
-- 列表：使用 `createQueryBuilder` 组合条件，分页时返回 `{ current, total, pageSize, records }`。
+- 数据库操作优先使用构造函数注入的 `private readonly xxxRepository: Repository<Xxx>` 及其常规方法（例如 `find`、`findOne`、`findAndCount`、`create`、`save`、`update`、`delete`），不要默认使用 `this.xxxRepository.createQueryBuilder('xxx')`。
+- 列表查询优先使用 Repository 常规方法；分页时返回 `{ current, total, pageSize, records }`。
+- 仅在涉及多表关联、复杂筛选、聚合、子查询或其他难以通过 Repository 常规方法表达的场景下，才使用 `this.xxxRepository.createQueryBuilder('xxx')`。
 - 条件查询只在参数存在时追加 `andWhere`。
 - 业务异常使用 NestJS 标准异常类，例如 `ForbiddenException`、`UnauthorizedException`，或项目统一错误工具。
 - 涉及缓存、登录态、token 等通用能力时复用基础设施层 service，不在业务模块中重复实现。
@@ -472,7 +474,7 @@ export class AuthController {
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToInstance } from 'class-transformer';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Xxx } from '../entities/Xxx.entity';
 import { CreateXxxDto } from './dto/CreateXxx.dto';
 import { UpdateXxxDto } from './dto/UpdateXxx.dto';
@@ -506,22 +508,14 @@ export class XxxService {
 
   async findAll(query: ListXxxDto): Promise<PageResponse<Xxx>> {
     const { current = 1, pageSize = 10, keyword, status } = query;
-    const queryBuilder = this.xxxRepository.createQueryBuilder('xxx');
-
-    if (keyword) {
-      queryBuilder.andWhere('xxx.name LIKE :keyword', {
-        keyword: `%${keyword}%`,
-      });
-    }
-
-    if (status !== undefined) {
-      queryBuilder.andWhere('xxx.status = :status', { status });
-    }
-
-    const [records, total] = await queryBuilder
-      .skip((current - 1) * pageSize)
-      .take(pageSize)
-      .getManyAndCount();
+    const [records, total] = await this.xxxRepository.findAndCount({
+      where: {
+        ...(keyword ? { name: Like(`%${keyword}%`) } : {}),
+        ...(status !== undefined ? { status } : {}),
+      },
+      skip: (current - 1) * pageSize,
+      take: pageSize,
+    });
 
     return {
       current,
