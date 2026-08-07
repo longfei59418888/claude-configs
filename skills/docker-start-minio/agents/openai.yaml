@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docker Start MinIO"
+  short_description: "Check Docker and start MinIO with Compose"
+  default_prompt: "Use $docker-start-minio to check prerequisites and start MinIO in the current project."

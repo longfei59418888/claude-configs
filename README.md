@@ -74,6 +74,7 @@ $HOME/.claude/skills/api-doc-update
 - api-doc-update<API生成skill>
 - commit-code<git提交skill>
 - design-format<网站样式规范生成skill>
+- docker-start-minio<Docker启动MinIO skill>
 - get-skill<skill和rule安装skill>
 - install-npm-package<npm包安装skill>
 - publish-npm-package<npm包发布上传skill>

@@ -1,0 +1,73 @@
+---
+name: docker-start-minio
+description: Check whether Docker is running and start a local MinIO service with Docker Compose. Use when the user asks to start, launch, or prepare MinIO in the current project, especially when docker-compose.yml or ./data/minio may not exist.
+---
+
+# Start MinIO with Docker
+
+Run this workflow from the current project directory.
+
+## Workflow
+
+1. Check that the Docker daemon is available:
+
+   ```bash
+   docker info
+   ```
+
+   If this check fails because Docker is not running, stop immediately and tell the user to start Docker Desktop/the Docker daemon, then retry. Do not attempt to start the daemon yourself.
+
+2. Check for both `./docker-compose.yml` and `./data/minio`.
+
+   - If `./data/minio` is missing, create its data and config directories:
+
+     ```bash
+     mkdir -p ./data/minio/{data,config}
+     ```
+
+   - If `./docker-compose.yml` is missing, create it with this content. Do not overwrite an existing Compose file.
+
+     ```yaml
+     version: "3.8"
+
+     services:
+       minio:
+         image: minio/minio:latest
+         container_name: minio
+
+         restart: always
+
+         ports:
+           - "9000:9000"
+           - "9001:9001"
+
+         environment:
+           MINIO_ROOT_USER: admin
+           MINIO_ROOT_PASSWORD: "ChangeMe123456"
+
+         volumes:
+           - ./data/minio/data:/data
+           - ./data/minio/config:/root/.minio
+
+         command: server /data --console-address ":9001"
+     ```
+
+3. Start the service, whether the files already existed or were just created:
+
+   ```bash
+   docker compose up -d
+   ```
+
+4. Verify the result with:
+
+   ```bash
+   docker compose ps
+   ```
+
+   Report the service status and, if it is running, the MinIO API (`http://localhost:9000`) and console (`http://localhost:9001`) addresses. The configured local credentials are `admin` / `ChangeMe123456`; mention that the password should be changed for non-local use.
+
+## Safety and failure handling
+
+- Never overwrite an existing `docker-compose.yml` during setup.
+- If an existing Compose file uses different service names, ports, or volume paths, preserve it and run `docker compose up -d` as requested; report any startup error instead of rewriting the file.
+- If `docker compose up -d` fails, inspect `docker compose ps` and provide the relevant error. Common causes include ports `9000` or `9001` already being occupied, an existing container named `minio`, or Docker not having started.
