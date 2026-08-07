@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docker Start MySQL"
+  short_description: "Check Docker and start MySQL with Compose"
+  default_prompt: "Use $docker-start-mysql to check prerequisites and start MySQL in the current project."

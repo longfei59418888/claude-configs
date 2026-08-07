@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docker Start PostgreSQL"
+  short_description: "Check Docker and start PostgreSQL with Compose"
+  default_prompt: "Use $docker-start-postgresql to check prerequisites and start PostgreSQL in the current project."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Docker Start Redis"
+  short_description: "Check Docker and start Redis with Compose"
+  default_prompt: "Use $docker-start-redis to check prerequisites and start Redis in the current project."
