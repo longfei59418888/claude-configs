@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright MCP Local Test"
+  short_description: "Test local web apps with Playwright MCP"
+  default_prompt: "Use $playwright-mcp-local-test to test the running local web app against the requested requirements."

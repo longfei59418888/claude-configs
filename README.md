@@ -81,6 +81,7 @@ $HOME/.claude/skills/api-doc-update
 - get-skill<skill和rule安装skill>
 - install-npm-package<npm包安装skill>
 - publish-npm-package<npm包发布上传skill>
+- local-test<本地 Playwright MCP 测试 skill>
 - worktree-option<git worktree工作区管理skill>
 
 ## Rules
