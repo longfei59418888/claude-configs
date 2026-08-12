@@ -17,15 +17,22 @@ Use this skill to perform browser-based validation against a local project serve
 
 ## Workflow
 
-### 1. Establish the target
+### 1. Load project configuration safely
 
-1. Identify the project root from the current workspace and inspect project configuration or the user's request for the expected local URL and port.
-2. If the URL is ambiguous, use the most clearly documented local URL without launching anything. Ask the user only when no reasonable URL can be determined.
-3. Check reachability by opening the URL with Playwright MCP. A refused connection, timeout, DNS failure, or unavailable page means the local server is not ready; stop and ask the user to start it. Do not run a package script, shell command, Docker command, or MCP startup command on the user's behalf.
+At the beginning of every test, identify the project root and check for `<project-root>/.playwright-mcp-config` before choosing a URL or performing any user operation.
 
-### 2. Load login configuration safely
+- If the file does not exist, create it with restrictive permissions (`0600` when supported). Create only this non-secret template; do not invent credentials or a server address:
 
-Before interacting with a login page, check for `<project-root>/.playwright-mcp-config`.
+  ```text
+  # Local Playwright MCP configuration
+  PLAYWRIGHT_MCP_BASE_URL=
+  PLAYWRIGHT_MCP_USERNAME=
+  PLAYWRIGHT_MCP_PASSWORD=
+  ```
+
+- If the file exists, read its values before navigation, login, or other user interactions. Preserve and reuse unrelated configuration keys when updating it.
+- Use `PLAYWRIGHT_MCP_BASE_URL` as the target local server URL when it is non-empty. Accept a complete URL, including a path, and do not replace it with a guessed localhost URL. If it is empty, determine the URL from the user's request or project documentation; ask only when no reasonable URL can be determined.
+- Treat all values as sensitive. Never print, quote, screenshot, or include passwords, tokens, or other secret values in the final report.
 
 Use this simple dotenv-like format when reading or writing it:
 
@@ -37,11 +44,17 @@ PLAYWRIGHT_MCP_PASSWORD=...
 - Ignore blank lines and lines beginning with `#`.
 - Values may be single- or double-quoted; remove only the wrapping quotes.
 - Do not display parsed values in tool output or chat.
-- If the file is absent or incomplete, continue to the login page and ask the user for only the missing username and/or password when the page actually blocks progress.
+- Make all configuration values available to the test workflow when needed for login and other user operations; do not expose them in logs or screenshots.
+- If the file is incomplete, continue until the missing value actually blocks the requested operation, then ask the user only for that value.
 - After the user provides credentials, save them to the project-root file in the format above, preserving unrelated existing keys if present. Create the file with restrictive permissions (`0600`) when the environment supports it. Do not save credentials anywhere else.
 - Never commit, stage, upload, or include `.playwright-mcp-config` in screenshots or test artifacts. If the repository has ignore rules, add the file to the project's local ignore configuration only if the user has authorized repository configuration changes; otherwise warn the user that it should be ignored.
 
 If credentials already exist, fill the login form only when needed. Do not proactively log out or overwrite a working authenticated session. If stored credentials fail, do not repeatedly retry; report that the saved credentials were rejected and ask the user whether to update them.
+
+### 2. Establish the target
+
+1. Use the non-empty `PLAYWRIGHT_MCP_BASE_URL` from the configuration file as the entry URL. Otherwise use the URL determined from the user's request or project documentation.
+2. Check reachability by opening the selected URL with Playwright MCP. A refused connection, timeout, DNS failure, or unavailable page means the local server is not ready; stop and ask the user to start it. Do not run a package script, shell command, Docker command, or MCP startup command on the user's behalf.
 
 ### 3. Translate the request into checks
 
@@ -86,14 +99,4 @@ Report concisely:
 - cleanup status;
 - the exact action the user must take for any blocker, such as starting the local server or providing missing login details.
 
-## Credential file example
-
-The file is intentionally project-local and should remain untracked:
-
-```text
-# Used only by the local Playwright MCP test skill
-PLAYWRIGHT_MCP_USERNAME=test-user
-PLAYWRIGHT_MCP_PASSWORD=replace-me
-```
-
-Do not create this example file during skill execution unless the user has supplied real credentials.
+The configuration file is intentionally project-local and should remain untracked. Do not commit or stage it.
