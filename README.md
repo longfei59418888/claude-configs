@@ -79,10 +79,24 @@ $HOME/.claude/skills/api-doc-update
 - docker-start-postgresql<Docker启动PostgreSQL skill>
 - docker-start-redis<Docker启动Redis skill>
 - get-skill<skill和rule安装skill>
+- image-compress<图片等比例压缩与WebP转换skill>
 - install-npm-package<npm包安装skill>
 - publish-npm-package<npm包发布上传skill>
 - local-test<本地 Playwright MCP 测试 skill>
 - worktree-option<git worktree工作区管理skill>
+
+### image-compress 使用说明
+
+`image-compress` 用于将项目图片按实际使用宽度进行优化：当图片宽度超过使用宽度的 2 倍时，按照原始宽高比例等比例缩小，并将非 WebP 图片转换为 WebP。
+
+```bash
+python3 skills/image-compress/scripts/compress_images.py \
+  --input path/to/images \
+  --output path/to/compressed-images \
+  --width 300
+```
+
+默认不会覆盖源文件，输出文件统一为 `.webp`。`--width` 表示图片在项目中的实际渲染宽度，脚本会将最大宽度限制为 `2 * --width`，并保持原始宽高比。
 
 ## Rules
 

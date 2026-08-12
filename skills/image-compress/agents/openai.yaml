@@ -1,0 +1,4 @@
+interface:
+  display_name: "Image Compress"
+  short_description: "Resize images and convert them to WebP"
+  default_prompt: "Use $image-compress to resize project images to 2x their rendered width and convert them to WebP."
