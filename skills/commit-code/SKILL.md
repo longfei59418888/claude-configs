@@ -55,9 +55,8 @@ docs: update setup instructions
    - Keep scope lowercase and hyphenated when possible.
 
 6. Commit the changes.
-   - Stage the current relevant changes with `git add`.
+   - Stage all current repository changes with `git add -A`.
    - Do not revert, amend, rebase, squash, or force-push unless the user explicitly asks.
-   - If unrelated changes are present and the requested commit target is ambiguous, ask before staging.
    - Run `git commit -m "<message>"`.
 
 7. Report the result.
