@@ -55,6 +55,7 @@ docs: update setup instructions
    - Keep scope lowercase and hyphenated when possible.
 
 6. Commit the changes.
+   - Commit on the currently checked-out branch. Do not create, switch to, check out, or pull another branch.
    - Stage all current repository changes with `git add -A`.
    - Do not revert, amend, rebase, squash, or force-push unless the user explicitly asks.
    - Run `git commit -m "<message>"`.
