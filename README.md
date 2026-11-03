@@ -81,6 +81,7 @@ $HOME/.claude/skills/api-doc-update
 - get-skill<skill和rule安装skill>
 - image-compress<图片等比例压缩与WebP转换skill>
 - install-npm-package<npm包安装skill>
+- md-to-pdf<Markdown 转 PDF skill>
 - publish-npm-package<npm包发布上传skill>
 - local-test<本地 Playwright MCP 测试 skill>
 - worktree-option<git worktree工作区管理skill>
@@ -97,6 +98,18 @@ python3 skills/image-compress/scripts/compress_images.py \
 ```
 
 默认不会覆盖源文件，输出文件统一为 `.webp`。`--width` 表示图片在项目中的实际渲染宽度，脚本会将最大宽度限制为 `2 * --width`，并保持原始宽高比。
+
+### md-to-pdf 使用说明
+
+md-to-pdf 内置 Python 标准库脚本，不需要用户额外安装 Pandoc、ReportLab 或其他 PDF 工具：
+
+~~~bash
+python3 skills/md-to-pdf/scripts/md_to_pdf.py \
+  path/to/document.md \
+  --output path/to/document.pdf
+~~~
+
+支持标题、段落、列表、引用、代码块、表格、行内格式，以及本地 PNG/JPEG 图片；默认生成 A4 PDF 并保留页码。
 
 ## Rules
 
